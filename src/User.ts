@@ -7,10 +7,13 @@ class User {
     totalExp = 0;
 
     heroes: Hero[] = [];
-    __heroesInTeam: Hero[] = [];//jichu 
+    //__heroesInTeam: Hero[] = [];//jichu 
 
     pet: Pet;
 
+    constructor() {
+
+    }
 
     get heroesInTeam() {//高阶 数据单向流动
         return this.heroes.filter(hero => hero.isInTeam);
@@ -20,7 +23,9 @@ class User {
 
         var result = 0;
         this.heroesInTeam.forEach(hero => result += hero.getFightPower());
-        result += this.pet.getFihgtPower();
+        console.log(result)
+        result += this.pet.getFightPower();
+
         return result;
 
         //arr.every     arr.some     arr.map     arr.foreach    arr.filter
@@ -31,7 +36,7 @@ class User {
 }
 
 class Hero {
-
+    heroNmae: string;
     isInTeam: boolean = false;
 
     equipments: Equipments[] = [];
@@ -41,6 +46,11 @@ class Hero {
     level = 1;
 
     quality: number = 2.8;
+
+    constructor(heroName: string, isInTeam: boolean) {
+        this.heroNmae = heroName;
+        this.isInTeam = isInTeam;
+    }
 
     get maxHp() {
         return this.level * 100 * this.quality;
@@ -64,25 +74,45 @@ class Hero {
 }
 
 class Equipments {
-    jewel: Jewel[];
+    equipName:string;
+    jewel: Jewel[] = [];
+    atk=0;
+
+    constructor(name:string,atk){
+        this.equipName=name;
+        this.atk=atk;
+    }
 
     get attack() {
-        return 100;
+        var jewelResult: number = 0;
+        for (var i = 0; i < this.jewel.length; i++) {
+            jewelResult += this.jewel[i].attack;
+        }
+
+        return this.atk + jewelResult;
     }
 
 }
 
 class Jewel {
+    jewelName: string;
 
-    get attack(){
+    get attack() {
         return 10;
     }
 
 }
 
 class Pet {
+    petName: string[];
 
-    getFihgtPower() {
-        return 10;
+    getFightPower() {
+        // if(name==this.petName[0]){
+        //     return 10;
+        // }
+        // if(name==this.petName[1]){
+        //     return 15;
+        // }
+        return 20;
     }
 }

@@ -6,7 +6,6 @@ var User = (function () {
         this.level = 0;
         this.totalExp = 0;
         this.heroes = [];
-        this.__heroesInTeam = []; //jichu 
     }
     var d = __define,c=User,p=c.prototype;
     d(p, "heroesInTeam"
@@ -17,7 +16,8 @@ var User = (function () {
     p.getFightPower = function () {
         var result = 0;
         this.heroesInTeam.forEach(function (hero) { return result += hero.getFightPower(); });
-        result += this.pet.getFihgtPower();
+        console.log(result);
+        result += this.pet.getFightPower();
         return result;
         //arr.every     arr.some     arr.map     arr.foreach    arr.filter
         //大数据 map reduce
@@ -26,18 +26,20 @@ var User = (function () {
 }());
 egret.registerClass(User,'User');
 var Hero = (function () {
-    function Hero() {
+    function Hero(heroName, isInTeam) {
         this.isInTeam = false;
         this.equipments = [];
         //maxHp=100;//
         this.hp = 50;
-        this.leve = 1;
+        this.level = 1;
         this.quality = 2.8;
+        this.heroNmae = heroName;
+        this.isInTeam = isInTeam;
     }
     var d = __define,c=Hero,p=c.prototype;
     d(p, "maxHp"
         ,function () {
-            return this.leve * 100 * this.quality;
+            return this.level * 100 * this.quality;
         }
     );
     d(p, "attack"
@@ -60,12 +62,20 @@ var Hero = (function () {
 }());
 egret.registerClass(Hero,'Hero');
 var Equipments = (function () {
-    function Equipments() {
+    function Equipments(name, atk) {
+        this.jewel = [];
+        this.atk = 0;
+        this.equipName = name;
+        this.atk = atk;
     }
     var d = __define,c=Equipments,p=c.prototype;
     d(p, "attack"
         ,function () {
-            return 100;
+            var jewelResult = 0;
+            for (var i = 0; i < this.jewel.length; i++) {
+                jewelResult += this.jewel[i].attack;
+            }
+            return this.atk + jewelResult;
         }
     );
     return Equipments;
@@ -75,6 +85,11 @@ var Jewel = (function () {
     function Jewel() {
     }
     var d = __define,c=Jewel,p=c.prototype;
+    d(p, "attack"
+        ,function () {
+            return 10;
+        }
+    );
     return Jewel;
 }());
 egret.registerClass(Jewel,'Jewel');
@@ -82,8 +97,14 @@ var Pet = (function () {
     function Pet() {
     }
     var d = __define,c=Pet,p=c.prototype;
-    p.getFihgtPower = function () {
-        return 10;
+    p.getFightPower = function () {
+        // if(name==this.petName[0]){
+        //     return 10;
+        // }
+        // if(name==this.petName[1]){
+        //     return 15;
+        // }
+        return 20;
     };
     return Pet;
 }());
