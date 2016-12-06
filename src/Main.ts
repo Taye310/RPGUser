@@ -118,7 +118,7 @@ class Main extends egret.DisplayObjectContainer {
      */
     private createGameScene():void {
         var McCree=new Hero("McCree",true);
-        var Soilder76=new Hero("Soilder76",true);
+        var Soilder76=new Hero("Soilder76",false);
         var sword=new Equipments("sword",50);
         var armor=new Equipments("armor",10);
         var gun=new Equipments("gun",70);
@@ -131,14 +131,14 @@ class Main extends egret.DisplayObjectContainer {
         Soilder76.equipments.push(gun);
         sword.jewel.push(jewel);
         user.pet=pet;
-        console.log(sword.attack)
+        console.log("目前战斗力："+user.getFightPower());
         
         
         //面向切片编程AOP      面向对象 面向过程    java----.class 字节码------JVC
         //业务逻辑          技术问题可以成为独立的维度 面向切片 @****  
         //target[key] ---反射   = target.key key时可以变的参数
 
-        console.log("目前战斗力："+user.getFightPower());
+        
 
     }
 }

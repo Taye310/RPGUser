@@ -12,7 +12,7 @@ class User {
     pet: Pet;
 
     constructor() {
-
+        this.level=1;
     }
 
     get heroesInTeam() {//高阶 数据单向流动
@@ -23,10 +23,9 @@ class User {
 
         var result = 0;
         this.heroesInTeam.forEach(hero => result += hero.getFightPower());
-        console.log(result)
         result += this.pet.getFightPower();
 
-        return result;
+        return result+this.level*3;
 
         //arr.every     arr.some     arr.map     arr.foreach    arr.filter
         //大数据 map reduce
@@ -38,9 +37,7 @@ class User {
 class Hero {
     heroNmae: string;
     isInTeam: boolean = false;
-
     equipments: Equipments[] = [];
-
     //maxHp=100;//
     hp = 50;
     level = 1;
@@ -52,7 +49,8 @@ class Hero {
         this.isInTeam = isInTeam;
     }
 
-    get maxHp() {
+    @Cache
+    public get maxHp() {
         return this.level * 100 * this.quality;
     }
 

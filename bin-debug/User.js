@@ -1,3 +1,9 @@
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
 var User = (function () {
     function User() {
         this.cash = 0;
@@ -6,6 +12,7 @@ var User = (function () {
         this.level = 0;
         this.totalExp = 0;
         this.heroes = [];
+        this.level = 1;
     }
     var d = __define,c=User,p=c.prototype;
     d(p, "heroesInTeam"
@@ -16,9 +23,8 @@ var User = (function () {
     p.getFightPower = function () {
         var result = 0;
         this.heroesInTeam.forEach(function (hero) { return result += hero.getFightPower(); });
-        console.log(result);
         result += this.pet.getFightPower();
-        return result;
+        return result + this.level * 3;
         //arr.every     arr.some     arr.map     arr.foreach    arr.filter
         //大数据 map reduce
     };
@@ -58,6 +64,9 @@ var Hero = (function () {
     p.getFightPower = function () {
         return this.maxHp * 1.5 + this.attack * 1.8; //取整 前后端统一
     };
+    __decorate([
+        Cache
+    ], p, "maxHp", null);
     return Hero;
 }());
 egret.registerClass(Hero,'Hero');
