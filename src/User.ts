@@ -19,6 +19,7 @@ class User {
         return this.heroes.filter(hero => hero.isInTeam);
     }
 
+    
     getFightPower() {
 
         var result = 0;
@@ -50,7 +51,7 @@ class Hero {
     }
 
     @Cache
-    public get maxHp() {
+    get maxHp() {
         return this.level * 100 * this.quality;
     }
 
@@ -65,7 +66,8 @@ class Hero {
         return this.getFightPower();
     }
 
-    getFightPower() {
+    
+    getFightPower():number {
         return this.maxHp * 1.5 + this.attack * 1.8;//取整 前后端统一
     }
 

@@ -1,7 +1,6 @@
-var _this = this;
 var Cache = function (target, propertyName, desc) {
     var getter = desc.get;
-    console.log(_this);
+    console.log(target);
     desc.get = function () {
         return getter.apply(this);
     };
